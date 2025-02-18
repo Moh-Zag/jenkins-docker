@@ -1,9 +1,6 @@
 pipeline {
-    agent { docker { image 'python:3.12.0b3-alpine3.18'
-    
-           label 'docker-on-vas'
-    }
-    }
+    agent any
+
     environment {
         IMAGE_NAME = 'mohzag/jenkins-flask-app'
         IMAGE_TAG = "${IMAGE_NAME}:${env.BUILD_NUMBER}"
@@ -14,11 +11,16 @@ pipeline {
     stages {
 
         stage('Setup') {
+                agent { docker { image 'python:3.12.0b3-alpine3.18'
+    
+                label 'docker-on-vas'
+            }
             steps {
                 sh 'python --version'
                 sh 'pwd'
                 // sh "pip install -r requirements.txt"
             }
+        }
         }
         // stage('Test') {
         //     steps {
@@ -28,11 +30,6 @@ pipeline {
 
         stage('Login to docker hub') {
 
-            agent { docker { image 'docker:latest'
-    
-           label 'docker-on-vas'
-    }
-    }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh 'echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin'}
@@ -42,11 +39,6 @@ pipeline {
 
         stage('Build Docker Image')
         {
-            agent { docker { image 'docker:latest'
-    
-           label 'docker-on-vas'
-    }
-    }
             steps
             {
                 sh 'docker build -t ${IMAGE_TAG} .'
@@ -58,11 +50,6 @@ pipeline {
 
         stage('Push Docker Image')
         {
-            agent { docker { image 'docker:latest'
-    
-           label 'docker-on-vas'
-    }
-    }
             steps
             {
                 sh 'docker push ${IMAGE_TAG}'
