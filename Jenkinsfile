@@ -15,12 +15,12 @@ pipeline {
     
                 label 'docker-on-vas'
             }
+            }
             steps {
                 sh 'python --version'
                 sh 'pwd'
                 // sh "pip install -r requirements.txt"
             }
-        }
         }
         // stage('Test') {
         //     steps {
