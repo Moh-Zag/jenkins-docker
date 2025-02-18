@@ -1,9 +1,12 @@
 pipeline {
-    agent any
-
+    agent { docker { image 'python:3.13.0-alpine3.20'
+    
+           label 'docker-on-vas'
+    }
+    }
     environment {
-        IMAGE_NAME = 'sanjeevkt720/jenkins-flask-app'
-        IMAGE_TAG = "${IMAGE_NAME}:${env.GIT_COMMIT}"
+        IMAGE_NAME = 'mohzag/jenkins-flask-app'
+        IMAGE_TAG = "${IMAGE_NAME}:${env.BUILD_NUMBER}"
         
     }
 
