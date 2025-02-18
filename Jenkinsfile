@@ -13,13 +13,13 @@ pipeline {
     
     stages {
 
-        // stage('Setup') {
-        //     steps {
-        //         sh 'python --version'
-        //         sh 'pwd'
-        //         sh "pip install -r requirements.txt"
-        //     }
-        // }
+        stage('Setup') {
+            steps {
+                sh 'python --version'
+                sh 'pwd'
+                // sh "pip install -r requirements.txt"
+            }
+        }
         // stage('Test') {
         //     steps {
         //         sh "pytest"
@@ -27,6 +27,12 @@ pipeline {
         // }
 
         stage('Login to docker hub') {
+
+            agent { docker { image 'docker:latest'
+    
+           label 'docker-on-vas'
+    }
+    }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 sh 'echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin'}
@@ -36,6 +42,11 @@ pipeline {
 
         stage('Build Docker Image')
         {
+            agent { docker { image 'docker:latest'
+    
+           label 'docker-on-vas'
+    }
+    }
             steps
             {
                 sh 'docker build -t ${IMAGE_TAG} .'
@@ -47,6 +58,11 @@ pipeline {
 
         stage('Push Docker Image')
         {
+            agent { docker { image 'docker:latest'
+    
+           label 'docker-on-vas'
+    }
+    }
             steps
             {
                 sh 'docker push ${IMAGE_TAG}'
