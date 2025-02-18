@@ -16,6 +16,7 @@ pipeline {
         stage('Setup') {
             steps {
                 sh 'python --version'
+                sh 'pwd'
                 sh "pip install -r requirements.txt"
             }
         }
