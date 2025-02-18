@@ -6,7 +6,6 @@ pipeline {
         IMAGE_TAG = "${IMAGE_NAME}:${env.BUILD_NUMBER}"
         
     }
-
     
     stages {
 
