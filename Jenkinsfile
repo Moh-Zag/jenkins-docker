@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh 'python --version'
                 sh 'pwd'
-                // sh "pip install -r requirements.txt"
+                sh "pip install --no-cache-dir -r requirements.txt"
             }
         }
 
