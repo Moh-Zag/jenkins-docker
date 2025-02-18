@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'python:3.13.0-alpine3.20'
+    agent { docker { image 'python:3.12.0b3-alpine3.18'
     
            label 'docker-on-vas'
     }
@@ -15,6 +15,7 @@ pipeline {
 
         stage('Setup') {
             steps {
+                sh 'python --version'
                 sh "pip install -r requirements.txt"
             }
         }
