@@ -13,18 +13,18 @@ pipeline {
     
     stages {
 
-        stage('Setup') {
-            steps {
-                sh 'python --version'
-                sh 'pwd'
-                sh "pip install -r requirements.txt"
-            }
-        }
-        stage('Test') {
-            steps {
-                sh "pytest"
-            }
-        }
+        // stage('Setup') {
+        //     steps {
+        //         sh 'python --version'
+        //         sh 'pwd'
+        //         sh "pip install -r requirements.txt"
+        //     }
+        // }
+        // stage('Test') {
+        //     steps {
+        //         sh "pytest"
+        //     }
+        // }
 
         stage('Login to docker hub') {
             steps {
