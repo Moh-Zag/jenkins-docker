@@ -10,15 +10,15 @@ pipeline {
     stages {
 
         stage('Setup') {
-            //     agent { docker { image 'python:3.12.0b3-alpine3.18'
+                agent { docker { image 'python:3.12.0b3-alpine3.18'
     
-            //     label 'docker-on-vas'
-            // }
-            // }
+                label 'docker-on-vas'
+            }
+            }
             steps {
                 sh 'python --version'
                 sh 'pwd'
-                sh "pip install --no-cache-dir -r requirements.txt"
+            //    sh "pip install --no-cache-dir -r requirements.txt"
             }
         }
 
